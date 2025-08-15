@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PTE Question Types Ranking</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.2em;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .legend {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .high-impact { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .medium-high { background: linear-gradient(135deg, #f39c12, #e67e22); }
+        .medium { background: linear-gradient(135deg, #f1c40f, #f39c12); }
+        .low-medium { background: linear-gradient(135deg, #2ecc71, #27ae60); }
+        .low { background: linear-gradient(135deg, #3498db, #2980b9); }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+            color: white;
+            padding: 18px 12px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.95em;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        
+        td {
+            padding: 16px 12px;
+            text-align: center;
+            border-bottom: 1px solid #ecf0f1;
+            font-weight: 500;
+        }
+        
+        .question-name {
+            text-align: left !important;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .total-weight {
+            font-weight: 700;
+            font-size: 1.1em;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .skill-weight {
+            font-weight: 600;
+        }
+        
+        .speaking { color: #e74c3c; }
+        .writing { color: #3498db; }
+        .reading { color: #27ae60; }
+        .listening { color: #f39c12; }
+        
+        .rank {
+            font-weight: 700;
+            color: #34495e;
+            background: #ecf0f1;
+            border-radius: 20px;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        
+        .rank.top3 {
+            background: linear-gradient(135deg, #f1c40f, #f39c12);
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+        
+        .insights {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+        
+        .insights h3 {
+            margin-top: 0;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+        
+        .insight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .insight-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+        }
+        
+        @media (max-width: 1200px) {
+            table { font-size: 0.85em; }
+            th, td { padding: 12px 8px; }
+        }
+        
+        @media (max-width: 800px) {
+            .container { padding: 15px; }
+            h1 { font-size: 1.8em; }
+            table { font-size: 0.75em; }
+            th, td { padding: 10px 6px; }
+            .legend { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PTE Question Types Ranking</h1>
+        <p class="subtitle">Ranked by Total Weighting - Most Important to Least Important</p>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color high-impact"></div>
+                <span>High Impact (7%+)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color medium-high"></div>
+                <span>Medium-High (5-7%)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color medium"></div>
+                <span>Medium (3-5%)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color low-medium"></div>
+                <span>Low-Medium (1-3%)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color low"></div>
+                <span>Low Impact (<1%)</span>
+            </div>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Question Type</th>
+                    <th>Total Weight</th>
+                    <th>Tasks</th>
+                    <th>Speaking</th>
+                    <th>Writing</th>
+                    <th>Reading</th>
+                    <th>Listening</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="high-impact">
+                    <td><div class="rank top3">1</div></td>
+                    <td class="question-name">Describe Image</td>
+                    <td class="total-weight">14.5%</td>
+                    <td>5</td>
+                    <td class="skill-weight speaking">31.3%</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr class="high-impact">
+                    <td><div class="rank top3">2</div></td>
+                    <td class="question-name">Summarize Group Discussion</td>
+                    <td class="total-weight">8.7%</td>
+                    <td>2</td>
+                    <td class="skill-weight speaking">18.8%</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="skill-weight listening">20.0%</td>
+                </tr>
+                <tr class="high-impact">
+                    <td><div class="rank top3">3</div></td>
+                    <td class="question-name">Fill in the Blanks (Dropdown)</td>
+                    <td class="total-weight">8.0%</td>
+                    <td>5 (4 each)</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="skill-weight reading">27.5%</td>
+                    <td>-</td>
+                </tr>
+                <tr class="high-impact">
+                    <td><div class="rank">4</div></td>
+                    <td class="question-name">Repeat Sentence</td>
+                    <td class="total-weight">7.2%</td>
+                    <td>10</td>
+                    <td class="skill-weight speaking">15.6%</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="skill-weight listening">16.7%</td>
+                </tr>
+                <tr class="high-impact">
+                    <td><div class="rank">5</div></td>
+                    <td class="question-name">Write Essay</td>
+                    <td class="total-weight">7.2%</td>
+                    <td>1</td>
+                    <td>-</td>
+                    <td class="skill-weight writing">30.8%</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr class="medium-high">
+                    <td><div class="rank">6</div></td>
+                    <td class="question-name">Summarize Written Text</td>
+                    <td class="total-weight">6.5%</td>
+                    <td>2</td>
+                    <td>-</td>
+                    <td class="skill-weight writing">27.7%</td>
+                    <td class="skill-weight reading">22.5%</td>
+                    <td>-</td>
+                </tr>
+                <tr class="medium-high">
+                    <td><div class="rank">7</div></td>
+                    <td class="question-name">Retell Lecture</td>
+                    <td class="total-weight">5.8%</td>
+                    <td>2</td>
+                    <td class="skill-weight speaking">12.5%</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="skill-weight listening">13.3%</td>
+                </tr>
+                <tr class="medium-high">
+                    <td><div class="rank">8</div></td>
+                    <td class="question-name">Respond to a Situation</td>
+                    <td class="total-weight">5.8%</td>
+                    <td>2</td>
+                    <td class="skill-weight speaking">12.5%</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr class="medium-high">
+                    <td><div class="rank">9</div></td>
+                    <td class="question-name">Fill in the Blanks (Drag & Drop)</td>
+                    <td class="total-weight">5.4%</td>
+                    <td>4 (3-5 each)</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="skill-weight reading">18.8%</td>
+                    <td>-</td>
+                </tr>
+                <tr class="medium-high">
+                    <td><div class="rank">10</div></td>
+                    <td class="question-name">Write from Dictation</td>
+                    <td class="total-weight">5.4%</td>
+                    <td>3</td>
+                    <td>-</td>
+                    <td class="skill-weight writing">23.1%</td>
+                    <td>-</td>
+                    <td class="skill-weight listening">12.5%</td>
+                </tr>
+                <tr class="medium">
+                    <td><div class="rank">11</div></td>
+                    <td class="question-name">Summarize Spoken Text</td>
+                    <td class="total-weight">4.3%</td>
+                    <td>1</td>
+                    <td>-</td>
+                    <td class="skill-weight writing">18.5%</td>
+                    <td>-</td>
+                    <td class="skill-weight listening">10.0%</td>
+                </tr>
+                <tr class="medium">
+                    <td><div class="rank">12</div></td>
+                    <td class="question-name">Read Aloud</td>
+                    <td class="total-weight">4.3%</td>
+                    <td>6</td>
+                    <td class="skill-weight speaking">9.4%</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr class="medium">
+                    <td><div class="rank">13</div></td>
+                    <td class="question-name">Highlight Incorrect Words</td>
+                    <td class="total-weight">3.6%</td>
+                    <td>2</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="skill-weight reading">12.5%</td>
+                    <td class="skill-weight listening">8.3%</td>
+                </tr>
+                <tr class="medium">
+                    <td><div class="rank">14</div></td>
+                    <td class="question-name">Fill in the Blanks (Listening)</td>
+                    <td class="total-weight">3.3%</td>
+                    <td>2 (4-6 each)</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="skill-weight listening">7.5%</td>
+                </tr>
+                <tr class="low-medium">
+                    <td><div class="rank">15</div></td>
+                    <td class="question-name">Reorder Paragraph</td>
+                    <td class="total-weight">2.5%</td>
+                    <td>2</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="skill-weight reading">8.8%</td>
+                    <td>-</td>
+                </tr>
+                <tr class="low-medium">
+                    <td><div class="rank">16</div></td>
+                    <td class="question-name">Answer Short Question</td>
+                    <td class="total-weight">1.8%</td>
+                    <td>5</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="skill-weight listening">4.2%</td>
+                </tr>
+                <tr class="low-medium">
+                    <td><div class="rank">17</div></td>
+                    <td class="question-name">Multiple Choice, Multiple Answers (R)</td>
+                    <td class="total-weight">1.4%</td>
+                    <td>2</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="skill-weight reading">5.0%</td>
+                    <td>-</td>
+                </tr>
+                <tr class="low-medium">
+                    <td><div class="rank">18</div></td>
+                    <td class="question-name">Multiple Choice, Multiple Answers (L)</td>
+                    <td class="total-weight">1.4%</td>
+                    <td>2</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="skill-weight listening">3.3%</td>
+                </tr>
+                <tr class="low">
+                    <td><div class="rank">19</div></td>
+                    <td class="question-name">Multiple Choice, Single Answer (R)</td>
+                    <td class="total-weight">0.7%</td>
+                    <td>2</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="skill-weight reading">2.5%</td>
+                    <td>-</td>
+                </tr>
+                <tr class="low">
+                    <td><div class="rank">20</div></td>
+                    <td class="question-name">Multiple Choice, Single Answer (L)</td>
+                    <td class="total-weight">0.7%</td>
+                    <td>2</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="skill-weight listening">1.7%</td>
+                </tr>
+                <tr class="low">
+                    <td><div class="rank">21</div></td>
+                    <td class="question-name">Highlight Correct Summary</td>
+                    <td class="total-weight">0.7%</td>
+                    <td>2</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="skill-weight reading">2.5%</td>
+                    <td class="skill-weight listening">1.7%</td>
+                </tr>
+                <tr class="low">
+                    <td><div class="rank">22</div></td>
+                    <td class="question-name">Select Missing Word</td>
+                    <td class="total-weight">0.4%</td>
+                    <td>1</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="skill-weight listening">0.8%</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="insights">
+            <h3>📊 Key Strategic Insights</h3>
+            <div class="insight-grid">
+                <div class="insight-box">
+                    <h4>🎯 Priority Focus</h4>
+                    <p><strong>Top 5 questions = 45.6% of total score</strong><br>
+                    Master Describe Image, Group Discussion, and Fill in Blanks (Dropdown) for maximum impact.</p>
+                </div>
+                <div class="insight-box">
+                    <h4>🗣️ Speaking Dominance</h4>
+                    <p><strong>Describe Image alone = 31.3% of Speaking</strong><br>
+                    This single question type determines nearly 1/3 of your speaking score.</p>
+                </div>
+                <div class="insight-box">
+                    <h4>✍️ Writing Essentials</h4>
+                    <p><strong>Essay + Summarize + Dictation = 81.6% of Writing</strong><br>
+                    These three question types control most of your writing score.</p>
+                </div>
+                <div class="insight-box">
+                    <h4>🔄 Cross-Skill Advantage</h4>
+                    <p><strong>7 questions test multiple skills</strong><br>
+                    Improving these gives you double benefits across different skill areas.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
